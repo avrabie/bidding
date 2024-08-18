@@ -1,0 +1,217 @@
+openapi: 3.0.2
+info:
+  title: bid-01
+  version: 1.0.0
+  description: bid-01 OpenAPI
+servers:
+  -
+    url: http://localhost:8080
+    description: Localhost
+paths:
+  /greetrings:
+    servers:
+      -
+        url: http://localhost:8080
+        description: Localhost
+  /products:
+    summary: Path used to manage the list of products.
+    description: >-
+      The REST endpoint/path used to list and create zero or more `Product` entities.  This path
+      contains a `GET` and `POST` operation to perform the list and create tasks, respectively.
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+          description: Successful response - returns an array of `Product` entities.
+      operationId: getProducts
+      summary: List All Products
+      description: Gets a list of all `Product` entities.
+    post:
+      requestBody:
+        description: A new `Product` to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      servers:
+        -
+          url: http://localhost:8080
+          description: ''
+      responses:
+        '201':
+          description: Successful response.
+        '400':
+          description: Request did not pass validation
+      operationId: createProduct
+      summary: Create a Product
+      description: Creates a new instance of a `Product`.
+  /products/{productId}:
+    summary: Path used to manage a single Product.
+    description: >-
+      The REST endpoint/path used to get, update, and delete single instances of an `Product`.  This
+      path contains `GET`, `PUT`, and `DELETE` operations used to perform the get, update, and delete
+      tasks, respectively.
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          description: Successful response - returns a single `Product`.
+        '404':
+          description: Product not found
+      operationId: getProduct
+      summary: Get a Product
+      description: Gets the details of a single instance of a `Product`.
+    put:
+      requestBody:
+        description: Updated `Product` information.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+        required: true
+      responses:
+        '202':
+          description: Successful response.
+      operationId: updateProduct
+      summary: Update a Product
+      description: Updates an existing `Product`.
+    delete:
+      responses:
+        '204':
+          description: Successful response.
+      operationId: deleteProduct
+      summary: Delete a Product
+      description: Deletes an existing `Product`.
+    parameters:
+      -
+        name: productId
+        description: A unique identifier for a `Product`.
+        schema:
+          type: string
+        in: path
+        required: true
+components:
+  schemas:
+    Product:
+      title: Root Type for Product
+      description: Product for  bidding
+      type: object
+      properties:
+        product:
+          type: object
+          properties:
+            id:
+              format: int32
+              type: integer
+            name:
+              type: string
+            description:
+              type: string
+            category:
+              type: string
+            starting_price:
+              type: object
+              properties:
+                amount:
+                  format: int32
+                  type: integer
+                currency:
+                  type: string
+            current_bid:
+              type: object
+              properties:
+                amount:
+                  format: int32
+                  type: integer
+                currency:
+                  type: string
+                bidder:
+                  type: object
+                  properties:
+                    id:
+                      format: int32
+                      type: integer
+                    name:
+                      type: string
+            buy_now_price:
+              type: object
+              properties:
+                amount:
+                  format: int32
+                  type: integer
+                currency:
+                  type: string
+            minimum_increment:
+              format: int32
+              type: integer
+            image_urls:
+              type: array
+              items:
+                type: string
+            seller:
+              type: object
+              properties:
+                id:
+                  format: int32
+                  type: integer
+                name:
+                  type: string
+                rating:
+                  format: double
+                  type: number
+                location:
+                  type: string
+            auction_details:
+              type: object
+              properties:
+                start_time:
+                  format: date-time
+                  type: string
+                end_time:
+                  format: date-time
+                  type: string
+                status:
+                  type: string
+      example:
+        product:
+          id: 9876
+          name: Vintage Camera
+          description: >-
+            A classic 1950s vintage camera in excellent condition, fully functional with a leather
+            carrying case included.
+          category: Electronics
+          starting_price:
+            amount: 100
+            currency: USD
+          current_bid:
+            amount: 150
+            currency: USD
+            bidder:
+              id: 54321
+              name: Jane Smith
+          buy_now_price:
+            amount: 500
+            currency: USD
+          minimum_increment: 10
+          image_urls:
+            - https://example.com/images/vintage_camera_front.jpg
+            - https://example.com/images/vintage_camera_back.jpg
+            - https://example.com/images/vintage_camera_side.jpg
+          seller:
+            id: 67890
+            name: Vintage Store
+            rating: 4.8
+            location: New York, USA
+          auction_details:
+            start_time: '2024-08-15T12:00:00Z'
+            end_time: '2024-08-20T15:00:00Z'
+            status: active

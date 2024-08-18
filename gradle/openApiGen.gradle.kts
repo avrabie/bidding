@@ -22,4 +22,7 @@ tasks.named("compileJava") {
     dependsOn("biddingOpenApiGenerate")
 }
 
+tasks.named("processResources") {
+    dependsOn("biddingOpenApiGenerate")
+}
 

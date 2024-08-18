@@ -35,7 +35,13 @@ dependencies {
     testImplementation("io.projectreactor:reactor-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
-//    implementation("org.openapitools:openapi-generator:7.7.0")
+    // OpenApiGenerator Start
+    implementation("org.openapitools:jackson-databind-nullable:0.2.6")
+    implementation ("jakarta.validation:jakarta.validation-api:3.0.2")
+    implementation("io.swagger.core.v3:swagger-annotations:2.2.21")
+
+
+    // OpenApiGenerator End
 }
 
 tasks.withType<Test> {
@@ -49,7 +55,7 @@ tasks.register<org.openapitools.generator.gradle.plugin.tasks.GenerateTask>("bid
     description = "Generate OpenApi code"
     generatorName.set("spring")
     inputSpec.set("$rootDir/src/main/resources/apis/bidding.yaml")
-    outputDir.set("$rootDir/src/main/gen")
+    outputDir.set("$rootDir")
     apiPackage.set("xyz.optimized.api")
     modelPackage.set("xyz.optimized.model")
     invokerPackage.set("xyz.optimized.invoker")
@@ -60,28 +66,27 @@ tasks.register<org.openapitools.generator.gradle.plugin.tasks.GenerateTask>("bid
     configOptions.put("useSpringBoot3", "true")
     configOptions.put("useOptional", "true")
     configOptions.put("reactive", "true")
-    configOptions.put("useBeanValidation", "true")
+    configOptions.put("useBeanValidation", "false")
+    configOptions.put("validateSpec", "false")
+    configOptions.put("skipValidateSpec", "true")
+
+    configOptions.put("useBeanValidation", "false")
+    configOptions.put("useSwaggerFeature", "false")
+    configOptions.put("useSwaggerAnnotations", "false")
+    configOptions.put("sourceFolder", "src/main/gen")
 
 }
 
-tasks.register<org.openapitools.generator.gradle.plugin.tasks.GenerateTask>("biddingOpenApiGenerate2") {
-    group = "openApi"
-    description = "Generate OpenApi code"
-    generatorName.set("spring")
-    inputSpec.set("$rootDir/src/main/resources/apis/bidding.yaml")
-    outputDir.set("$rootDir/src/main/gen")
-    apiPackage.set("xyz.optimized.api")
-    modelPackage.set("xyz.optimized.model")
-    invokerPackage.set("xyz.optimized.invoker")
-    configOptions.put("interfaceOnly", "true")
-    configOptions.put("delegatePattern", "true")
-    configOptions.put("useTags", "true")
-    configOptions.put("dateLibrary", "java8")
-    configOptions.put("useSpringBoot3", "true")
-    configOptions.put("useOptional", "true")
-    configOptions.put("reactive", "true")
-    configOptions.put("useBeanValidation", "true")
 
+
+sourceSets {
+    // Configure the main source set
+    val main by getting {
+        java {
+            // Add a custom folder to the source directories
+            srcDir("src/main/gen")
+        }
+    }
 }
 
 

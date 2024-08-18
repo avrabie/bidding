@@ -1,29 +1,8 @@
-Bidding ApiFirstDev Project
-===========================
-## Tech Stack
-- Apicurio Studio
-- Spring Boot 3.3.2
-- - Spring WebFlux
-- - Gradle
-- - - OpenApi Generator
-- Docker
-
- 
-## Apicurio Studio (Optional)
-Getting Started with Apicurio Studio
-https://www.apicur.io/studio/getting-started/
-
-Prerequisites :
-- Docker / Podman locally running (if you want to update the API definition)
-
--`docker pull quay.io/apicurio/apicurio-studio:1.0.0.Beta1`
 
 -`docker pull quay.io/apicurio/apicurio-studio-ui:1.0.0.Beta1`
 
 ### Run Apicurio Studio
 
-Run Apicurio Studio
-`docker run -it -p 8080:8080 quay.io/apicurio/apicurio-studio:1.0.0.Beta1`
 
 Run Apiurio Studio UI
 `docker run -it -p 8888:8080 quay.io/apicurio/apicurio-studio-ui:1.0.0.Beta1`
@@ -52,4 +31,21 @@ and setting the `inputSpec` and `generatorName` properties along with other prop
 -  was not able to move this code to a different file though.
 - create a task to delete the generated code before generating it again.
 - link the deletion task to the clean task. 
-- make the `/gen` folder a source folder for the project.
+ 
+
+## Make `/gen` a source folder
+
+```code
+sourceSets {
+    val main by getting {
+        java {
+            srcDir("src/main/gen")
+        }
+    }
+}
+```
+
+- Now Make the project compile by adding the following dependencies:
+- - implementation("org.openapitools:jackson-databind-nullable:0.2.6")
+- - implementation ("jakarta.validation:jakarta.validation-api:3.0.2")
+- - implementation("io.swagger.core.v3:swagger-annotations:2.2.21")

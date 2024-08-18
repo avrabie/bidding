@@ -1,0 +1,11 @@
+README.md
+pom.xml
+src/main/gen/xyz/optimized/api/ApiUtil.java
+src/main/gen/xyz/optimized/api/DefaultApi.java
+src/main/gen/xyz/optimized/model/Product.java
+src/main/gen/xyz/optimized/model/ProductProduct.java
+src/main/gen/xyz/optimized/model/ProductProductAuctionDetails.java
+src/main/gen/xyz/optimized/model/ProductProductCurrentBid.java
+src/main/gen/xyz/optimized/model/ProductProductCurrentBidBidder.java
+src/main/gen/xyz/optimized/model/ProductProductSeller.java
+src/main/gen/xyz/optimized/model/ProductProductStartingPrice.java

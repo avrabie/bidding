@@ -39,4 +39,4 @@ Research the usage of openapi-generator in the project. https://openapi-generato
 and setting the `inputSpec` and `generatorName` properties along with other props.
 -  was not able to move this code to a different file though.
 - create a task to delete the generated code before generating it again.
-- link the deletion task to the clean task.
+- link the deletion task to the clean task. (adjusted them for kotlin)

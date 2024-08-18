@@ -38,4 +38,5 @@ Research the usage of openapi-generator in the project. https://openapi-generato
 - boils down to defining `tasks.register<org.openapitools.generator.gradle.plugin.tasks.GenerateTask>("biddingOpenApiGenerate")`  
 and setting the `inputSpec` and `generatorName` properties along with other props.
 -  was not able to move this code to a different file though.
-
+- create a task to delete the generated code before generating it again.
+- link the deletion task to the clean task.

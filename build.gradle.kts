@@ -49,38 +49,13 @@ tasks.withType<Test> {
 }
 
 
-openApiGenerate {
-    generatorName.set("spring")
-    inputSpec.set("$rootDir/src/main/resources/apis/bidding.yaml")
-    outputDir.set("$buildDir/generated")
-    apiPackage.set("xyz.optimized.bidding02.api")
-    invokerPackage.set("xyz.optimized.bidding02.invoker")
-    modelPackage.set("xyz.optimized.bidding02.model")
-    configOptions.put("interfaceOnly", "true")
-    configOptions.put("delegatePattern", "true")
-    configOptions.put("useTags", "true")
-    configOptions.put("dateLibrary", "java8")
-    configOptions.put("useSpringBoot3", "true")
-    configOptions.put("useOptional", "true")
-    configOptions.put("reactive", "true")
-    configOptions.put("useBeanValidation", "false")
-    configOptions.put("validateSpec", "false")
-    configOptions.put("skipValidateSpec", "true")
-
-    configOptions.put("useBeanValidation", "false")
-    configOptions.put("useSwaggerFeature", "false")
-    configOptions.put("useSwaggerAnnotations", "false")
-
-
-}
-
 
 tasks.register<org.openapitools.generator.gradle.plugin.tasks.GenerateTask>("biddingOpenApiGenerate") {
     group = "openApi"
     description = "Generate OpenApi code"
     generatorName.set("spring")
     inputSpec.set("$rootDir/src/main/resources/apis/bidding.yaml")
-    outputDir.set("$rootDir/src/main/gen")
+    outputDir.set("$buildDir/generated")
     apiPackage.set("xyz.optimized.api")
     modelPackage.set("xyz.optimized.model")
     invokerPackage.set("xyz.optimized.invoker")

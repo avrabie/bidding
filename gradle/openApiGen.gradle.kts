@@ -19,22 +19,22 @@ tasks.named("clean") {
 }
 
 tasks.named("compileJava") {
-    dependsOn("openApiGenerate")
+    dependsOn("biddingOpenApiGenerate")
     dependsOn("copyMyGeneratedSources")
 
 }
 
 
 tasks.register("copyMyGeneratedSources") {
-    dependsOn("openApiGenerate")
+    dependsOn("biddingOpenApiGenerate")
     doLast {
-        // Optionally, copy the generated files to the main source set
         copy {
             from("$buildDir/generated/src/main/java")
             into("src/main/gen")
         }
     }
 }
+
 //tasks.named("processResources") {
 //    dependsOn("biddingOpenApiGenerate")
 //}
